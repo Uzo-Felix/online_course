@@ -3,48 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Non-Technical Founder's Guide to Building an App - Course Platform</title>
+    <title>English Learning Platform - Complete LMS</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
             color: #333;
-            background-color: #f5f5f5;
         }
-
-        /* HEADER */
-        header {
+        
+        /* Navigation */
+        .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
+        
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5em;
             font-weight: bold;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
-
-        .user-info {
+        
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 15px;
         }
-
+        
+        .notifications-badge {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
         .avatar {
             width: 40px;
             height: 40px;
@@ -55,607 +87,1116 @@
             justify-content: center;
             font-weight: bold;
         }
-
-        /* MAIN CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-            padding: 0 1rem;
+        
+        /* Sidebar */
+        .container-wrapper {
+            display: flex;
+            min-height: calc(100vh - 65px);
         }
-
-        /* SIDEBAR */
+        
         .sidebar {
+            width: 250px;
             background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            height: fit-content;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            overflow-y: auto;
         }
-
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
         .sidebar-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 1rem;
+            font-size: 0.85em;
+            color: #999;
             text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
             letter-spacing: 0.5px;
         }
-
-        .sidebar-nav {
+        
+        .sidebar-menu {
             list-style: none;
         }
-
-        .sidebar-nav li {
-            margin-bottom: 0.5rem;
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
         }
-
-        .sidebar-nav a {
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
+        
+        .sidebar-menu a {
+            color: #666;
             text-decoration: none;
-            color: #666;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-        }
-
-        .sidebar-nav a:hover {
-            background-color: #f0f0f0;
-            color: #667eea;
-            border-left-color: #667eea;
-        }
-
-        .sidebar-nav a.active {
-            background-color: #f0f0f0;
-            color: #667eea;
-            border-left-color: #667eea;
-            font-weight: 600;
-        }
-
-        /* MAIN CONTENT */
-        .content {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .content-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .content-subtitle {
-            color: #999;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .progress-bar {
-            background-color: #e0e0e0;
-            height: 8px;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            width: 60%;
-            transition: width 0.3s ease;
-        }
-
-        /* MODULE CARD */
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .module-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 8px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-left: 5px solid #667eea;
-        }
-
-        .module-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-
-        .module-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .module-card p {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .module-progress {
-            background: white;
-            height: 6px;
-            border-radius: 3px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-
-        .module-progress-fill {
-            background: #667eea;
-            height: 100%;
-            width: 75%;
-        }
-
-        /* ACTIVITY SECTION */
-        .activity-section {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #eee;
-        }
-
-        .activity-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .activity-card {
-            background: #f9f9f9;
-            border-left: 4px solid #667eea;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 6px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .activity-content h4 {
-            font-size: 1.05rem;
-            margin-bottom: 0.3rem;
-            color: #333;
-        }
-
-        .activity-content p {
-            font-size: 0.9rem;
-            color: #999;
-        }
-
-        .activity-badge {
-            background: #667eea;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .activity-badge.completed {
-            background: #4caf50;
-        }
-
-        /* BUTTONS */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            gap: 10px;
+            padding: 10px 15px;
             border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 0.95em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #f0f2f5;
+            color: #667eea;
             font-weight: 600;
-            margin-top: 1rem;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
         }
-
-        .btn-secondary {
-            background: #e0e0e0;
+        
+        .page-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2em;
             color: #333;
+            margin-bottom: 8px;
         }
-
-        .btn-secondary:hover {
-            background: #d0d0d0;
+        
+        .page-subtitle {
+            color: #999;
+            font-size: 0.95em;
         }
-
-        /* FORUM SECTION */
-        .forum-posts {
-            margin-top: 1.5rem;
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s;
         }
-
-        .forum-post {
-            background: #f9f9f9;
-            padding: 1rem;
+        
+        .card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Views */
+        .view {
+            display: none;
+        }
+        
+        .view.active {
+            display: block;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        /* Assignment Card */
+        .assignment-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
             border-left: 4px solid #667eea;
-            margin-bottom: 1rem;
-            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
-        .forum-post-header {
+        
+        .assignment-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 0.5rem;
+            margin-bottom: 15px;
         }
-
-        .forum-post-author {
+        
+        .assignment-title {
             font-weight: 600;
             color: #333;
+            font-size: 1.05em;
         }
-
-        .forum-post-time {
-            font-size: 0.8rem;
+        
+        .due-badge {
+            background: #fff3cd;
+            color: #856404;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .due-badge.submitted {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .assignment-meta {
             color: #999;
+            font-size: 0.9em;
+            margin-bottom: 12px;
         }
-
-        .forum-post-text {
+        
+        .assignment-description {
             color: #666;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
-
-        .forum-post-replies {
-            margin-top: 0.5rem;
+        
+        /* Forum Post */
+        .forum-post {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
-        .reply-link {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 0.9rem;
-            cursor: pointer;
+        
+        .post-author {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
         }
-
-        .reply-link:hover {
-            text-decoration: underline;
-        }
-
-        /* STATS */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .stat-card {
+        
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            flex-shrink: 0;
         }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        
+        .author-info h4 {
+            color: #333;
+            font-size: 0.95em;
+            margin-bottom: 3px;
         }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-
-            .module-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
+        
+        .author-info p {
+            color: #999;
+            font-size: 0.85em;
         }
-
-        /* TABS */
+        
+        .post-content {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+        }
+        
+        .post-action {
+            color: #667eea;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .post-action:hover {
+            color: #764ba2;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.85em;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Tabs */
         .tabs {
             display: flex;
-            border-bottom: 2px solid #eee;
-            margin-bottom: 2rem;
-            gap: 2rem;
+            gap: 0;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 25px;
         }
-
+        
         .tab {
-            padding: 1rem 0;
+            padding: 15px 25px;
+            background: none;
+            border: none;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
-            color: #999;
+            font-size: 0.95em;
             font-weight: 600;
-            transition: all 0.3s ease;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
         }
-
+        
         .tab:hover {
             color: #667eea;
         }
-
+        
         .tab.active {
             color: #667eea;
             border-bottom-color: #667eea;
         }
-
+        
         .tab-content {
             display: none;
         }
-
+        
         .tab-content.active {
             display: block;
+        }
+        
+        /* Grade Card */
+        .grade-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: grid;
+            grid-template-columns: 1fr 150px;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .grade-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .grade-info p {
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .grade-value {
+            text-align: center;
+        }
+        
+        .grade-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .grade-label {
+            color: #999;
+            font-size: 0.85em;
+        }
+        
+        /* Notification */
+        .notification-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        
+        .notification-content h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .notification-content p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .notification-time {
+            color: #999;
+            font-size: 0.85em;
+            white-space: nowrap;
+        }
+        
+        /* Video Player */
+        .video-container {
+            background: #000;
+            border-radius: 8px;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Settings */
+        .settings-group {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .settings-group h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f2f5;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toggle-switch {
+            width: 50px;
+            height: 28px;
+            background: #ddd;
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: #667eea;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: left 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            left: 24px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                display: none;
+            }
+            
+            .sidebar.active {
+                display: block;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+                font-size: 0.85em;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .grade-card {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f0f2f5;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header-container">
-            <div class="logo">🚀 AppBuilder Academy</div>
-            <div class="user-info">
-                <span>Welcome, Sarah</span>
-                <div class="avatar">S</div>
-            </div>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <span>🌍</span>
+            <span>English Learning Hub</span>
         </div>
-    </header>
+        <ul class="nav-menu">
+            <li><a onclick="switchView(event, 'dashboard')">Dashboard</a></li>
+            <li><a onclick="switchView(event, 'modules')">Modules</a></li>
+            <li><a onclick="switchView(event, 'assignments')">Assignments</a></li>
+            <li><a onclick="switchView(event, 'forum')">Forum</a></li>
+            <li><a onclick="switchView(event, 'grades')">Grades</a></li>
+            <li><a onclick="switchView(event, 'resources')">Resources</a></li>
+        </ul>
+        <div class="user-section">
+            <div class="notifications-badge" onclick="switchView(event, 'notifications')">3</div>
+            <div class="avatar">LN</div>
+            <a href="#" onclick="switchView(event, 'profile')" style="color: white; text-decoration: none;">Profile ▼</a>
+        </div>
+    </div>
 
-    <!-- MAIN CONTAINER -->
-    <div class="container">
-        <!-- SIDEBAR -->
+    <!-- Main Container -->
+    <div class="container-wrapper">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-title">📚 Modules</div>
-            <ul class="sidebar-nav">
-                <li><a href="#" class="active">Module 1: Fundamentals</a></li>
-                <li><a href="#">Module 2: Planning Phase</a></li>
-                <li><a href="#">Module 3: Design Phase</a></li>
-                <li><a href="#">Module 4: Development</a></li>
-                <li><a href="#">Module 5: Launch & Beyond</a></li>
-            </ul>
-
-            <div class="sidebar-title" style="margin-top: 2rem;">🎯 Quick Links</div>
-            <ul class="sidebar-nav">
-                <li><a href="#">Q&A Forum</a></li>
-                <li><a href="#">Resources</a></li>
-                <li><a href="#">My Progress</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
+            <div class="sidebar-section">
+                <div class="sidebar-title">📚 Course</div>
+                <ul class="sidebar-menu">
+                    <li><a onclick="switchView(event, 'dashboard')">📊 Dashboard</a></li>
+                    <li><a onclick="switchView(event, 'modules')">📖 Modules</a></li>
+                    <li><a onclick="switchView(event, 'assignments')">✍️ Assignments</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">🎓 Learning</div>
+                <ul class="sidebar-menu">
+                    <li><a onclick="switchView(event, 'videos')">🎥 Videos</a></li>
+                    <li><a onclick="switchView(event, 'quizzes')">📝 Quizzes</a></li>
+                    <li><a onclick="switchView(event, 'forum')">💬 Discussion</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">🔧 Tools</div>
+                <ul class="sidebar-menu">
+                    <li><a onclick="switchView(event, 'grades')">📊 Grades</a></li>
+                    <li><a onclick="switchView(event, 'office-hours')">🎓 Office Hours</a></li>
+                    <li><a onclick="switchView(event, 'calendar')">📅 Calendar</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">⚙️ Account</div>
+                <ul class="sidebar-menu">
+                    <li><a onclick="switchView(event, 'profile')">👤 Profile</a></li>
+                    <li><a onclick="switchView(event, 'settings')">⚙️ Settings</a></li>
+                    <li><a onclick="switchView(event, 'help')">❓ Help</a></li>
+                </ul>
+            </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="content">
-            <div class="content-title">Module 1: App Development Fundamentals</div>
-            <div class="content-subtitle">Week 1 • 3 hours estimated</div>
-
-            <!-- PROGRESS -->
-            <div style="margin-bottom: 2rem;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span style="font-weight: 600; font-size: 0.9rem;">Your Progress</span>
-                    <span style="color: #667eea; font-weight: 600;">60%</span>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- DASHBOARD -->
+            <div id="dashboard" class="view active">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Welcome back! Here's your learning progress</p>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Current Module Progress</h3>
+                    <p style="margin-bottom: 10px; color: #666;">Module 2: Business Communication - 55% Complete</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 55%;"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Quick Links</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <a class="btn btn-primary" onclick="switchView(event, 'assignments')">✍️ View Assignments</a>
+                        <a class="btn btn-primary" onclick="switchView(event, 'videos')">🎥 Watch Videos</a>
+                        <a class="btn btn-primary" onclick="switchView(event, 'forum')">💬 Join Forum</a>
+                        <a class="btn btn-primary" onclick="switchView(event, 'office-hours')">🎓 Book Office Hours</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📌 Upcoming Deadlines</h3>
+                    <div style="color: #666;">
+                        <p style="margin-bottom: 10px;">✉️ Email Writing Task - Due in 2 days</p>
+                        <p style="margin-bottom: 10px;">🎤 Presentation Preparation - Due in 5 days</p>
+                        <p>💭 Module 2 Reflection - Due in 7 days</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- STATS -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Videos Completed</div>
+            <!-- MODULES -->
+            <div id="modules" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Course Modules</h1>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">45 min</div>
-                    <div class="stat-label">Time Spent</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8/10</div>
-                    <div class="stat-label">Quiz Score</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h3 style="color: #667eea;">Module 1: Foundations</h3>
+                        <p style="margin: 10px 0; color: #666; font-size: 0.9em;">Speaking with Confidence</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <p style="margin-top: 10px; color: #999; font-size: 0.85em;">✓ Completed</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: #667eea;">Module 2: Business Communication</h3>
+                        <p style="margin: 10px 0; color: #666; font-size: 0.9em;">Weeks 2-4 (In Progress)</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 55%;"></div>
+                        </div>
+                        <p style="margin-top: 10px; color: #999; font-size: 0.85em;">11 Assets | 55% Complete</p>
+                        <a class="btn btn-primary btn-small" style="margin-top: 10px; width: 100%;" onclick="switchView(event, 'videos')">Continue →</a>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: #667eea;">Module 3: Conversational Fluency</h3>
+                        <p style="margin: 10px 0; color: #666; font-size: 0.9em;">Weeks 4-6 (Coming Soon)</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <p style="margin-top: 10px; color: #999; font-size: 0.85em;">🔒 Locked</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- LEARNING ACTIVITIES -->
-            <div class="activity-section">
-                <div class="activity-title">📍 This Week's Activities</div>
-
-                <div class="activity-card">
-                    <div class="activity-content">
-                        <h4>1. Watch: The 5 Phases of App Development</h4>
-                        <p>Video • 15 minutes • Learn the core framework</p>
-                    </div>
-                    <span class="activity-badge completed">Completed</span>
+            <!-- ASSIGNMENTS -->
+            <div id="assignments" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Assignments</h1>
                 </div>
-
-                <div class="activity-card">
-                    <div class="activity-content">
-                        <h4>2. Interactive Scenario: Marcus's App Dilemma</h4>
-                        <p>Decision-making exercise • 10-15 minutes • Think like a founder</p>
+                <div class="assignment-card">
+                    <div class="assignment-header">
+                        <div>
+                            <div class="assignment-title">Meeting Simulation Video Analysis</div>
+                            <div class="assignment-meta">Module 2 • Submitted</div>
+                        </div>
+                        <span class="due-badge submitted">✓ Submitted</span>
                     </div>
-                    <span class="activity-badge completed">Completed</span>
+                    <div class="assignment-description">Analyze the business meeting video and identify key communication strategies used.</div>
                 </div>
-
-                <div class="activity-card">
-                    <div class="activity-content">
-                        <h4>3. Practice Quiz: App Development Phases</h4>
-                        <p>Self-check quiz • 10 questions • Get instant feedback</p>
+                <div class="assignment-card">
+                    <div class="assignment-header">
+                        <div>
+                            <div class="assignment-title">Email Writing Task</div>
+                            <div class="assignment-meta">Module 2 • Due in 2 days</div>
+                        </div>
+                        <span class="due-badge">Due: Dec 20</span>
                     </div>
-                    <span class="activity-badge">In Progress</span>
+                    <div class="assignment-description">Write 3 professional emails in different contexts (inquiry, complaint, follow-up).</div>
+                    <div style="margin-top: 15px;">
+                        <a class="btn btn-primary btn-small" onclick="switchView(event, 'submit-assignment')">Submit Assignment →</a>
+                    </div>
                 </div>
-
-                <div class="activity-card">
-                    <div class="activity-content">
-                        <h4>4. Discussion: Biggest Fear About Developers</h4>
-                        <p>Forum discussion • Share your thoughts, read peers • Builds community</p>
+                <div class="assignment-card">
+                    <div class="assignment-header">
+                        <div>
+                            <div class="assignment-title">Role-Play Scenario Practice</div>
+                            <div class="assignment-meta">Module 2 • Not Started</div>
+                        </div>
+                        <span class="due-badge">Due: Dec 22</span>
                     </div>
-                    <button class="btn" style="margin-top: 0;">Join Discussion</button>
-                </div>
-
-                <div class="activity-card">
-                    <div class="activity-content">
-                        <h4>5. Office Hours Q&A</h4>
-                        <p>Live session • Tuesday 6-7pm PST • Ask your questions</p>
-                    </div>
-                    <span class="activity-badge">Upcoming</span>
+                    <div class="assignment-description">Participate in role-play scenarios covering common business situations.</div>
                 </div>
             </div>
 
-            <!-- TABS -->
-            <div class="activity-section">
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab(event, 'forum')">💬 Discussion Forum</div>
-                    <div class="tab" onclick="switchTab(event, 'resources')">📚 Resources</div>
-                    <div class="tab" onclick="switchTab(event, 'instructors')">👥 Instructors</div>
+            <!-- VIDEOS -->
+            <div id="videos" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Video Lessons</h1>
                 </div>
-
-                <!-- Forum Tab -->
-                <div id="forum" class="tab-content active">
-                    <div style="margin-bottom: 1.5rem;">
-                        <button class="btn">+ Start New Discussion</button>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎥 Meeting Simulation Video</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
                     </div>
-
-                    <div class="forum-posts">
-                        <div class="forum-post">
-                            <div class="forum-post-header">
-                                <div>
-                                    <div class="forum-post-author">Jordan M.</div>
-                                    <div class="forum-post-time">2 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="forum-post-text">
-                                "What's your biggest fear about working with developers? Mine is definitely communication. I'm worried I won't understand what they're saying or vice versa..."
-                            </div>
-                            <div class="forum-post-replies">
-                                <a class="reply-link">5 replies</a> • <a class="reply-link">reply</a>
-                            </div>
-                        </div>
-
-                        <div class="forum-post">
-                            <div class="forum-post-header">
-                                <div>
-                                    <div class="forum-post-author">Alex K.</div>
-                                    <div class="forum-post-time">4 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="forum-post-text">
-                                "For me it's: how do I know they're actually qualified? There are so many developers out there and I don't have the technical knowledge to assess them properly."
-                            </div>
-                            <div class="forum-post-replies">
-                                <a class="reply-link">3 replies</a> • <a class="reply-link">reply</a>
-                            </div>
-                        </div>
-
-                        <div class="forum-post">
-                            <div class="forum-post-header">
-                                <div>
-                                    <div class="forum-post-author">Instructor Sarah</div>
-                                    <div class="forum-post-time">1 hour ago</div>
-                                </div>
-                            </div>
-                            <div class="forum-post-text">
-                                "Both great questions! Communication is learnable—I'll share a framework this week for having effective developer conversations. Alex, for vetting developers, here's what to look for: portfolio, client references, and their ability to explain technical concepts simply. More in the resources."
-                            </div>
-                            <div class="forum-post-replies">
-                                <a class="reply-link">reply</a>
-                            </div>
-                        </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <button class="btn btn-primary">▶️ Play</button>
+                        <button class="btn btn-secondary">⬇️ Download Transcript</button>
+                        <button class="btn btn-secondary">📝 Take Notes</button>
                     </div>
                 </div>
+                <div class="card">
+                    <h3 style="color: #667eea;">Transcript</h3>
+                    <p style="color: #666; line-height: 1.8;">
+                        "Welcome to this business meeting simulation. In this video, you'll see a realistic example of a professional meeting where team members discuss quarterly goals and project updates..."
+                    </p>
+                </div>
+            </div>
 
-                <!-- Resources Tab -->
-                <div id="resources" class="tab-content">
-                    <div style="padding: 1rem 0;">
-                        <h4 style="margin-bottom: 1rem;">📖 Module Resources</h4>
-                        <ul style="list-style: none;">
-                            <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: #f9f9f9; border-radius: 6px;">
-                                📄 <a href="#" style="color: #667eea; text-decoration: none;">Reading: The Lean Startup Approach</a>
-                            </li>
-                            <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: #f9f9f9; border-radius: 6px;">
-                                🎥 <a href="#" style="color: #667eea; text-decoration: none;">Video: MVP Explained (10 min)</a>
-                            </li>
-                            <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: #f9f9f9; border-radius: 6px;">
-                                📊 <a href="#" style="color: #667eea; text-decoration: none;">Template: Scope Planning Worksheet</a>
-                            </li>
-                            <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: #f9f9f9; border-radius: 6px;">
-                                🔗 <a href="#" style="color: #667eea; text-decoration: none;">Case Study: How Airbnb Started Small</a>
-                            </li>
-                        </ul>
+            <!-- QUIZZES -->
+            <div id="quizzes" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Quizzes & Assessments</h1>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Vocabulary Quiz: Business Terms</h3>
+                    <p style="color: #666; margin-bottom: 15px;">10 questions • 5 minutes • Score: 8/10</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <button class="btn btn-primary btn-small" style="margin-top: 15px;">Review Answers</button>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Listening Comprehension: Email Discussion</h3>
+                    <p style="color: #666; margin-bottom: 15px;">5 questions • 8 minutes • Not yet attempted</p>
+                    <button class="btn btn-primary">Start Quiz →</button>
+                </div>
+            </div>
+
+            <!-- FORUM -->
+            <div id="forum" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Discussion Forum</h1>
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <button class="btn btn-primary" onclick="switchView(event, 'new-post')">+ New Discussion Topic</button>
+                </div>
+                <div class="forum-post">
+                    <div class="post-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>John Davis</h4>
+                            <p>2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <strong>Tips for Improving Business Email Writing</strong>
+                        <p>I've noticed that many of us struggle with formal email conventions. Here are some tips that helped me: always use a clear subject line, keep sentences short and direct, and end with a clear call to action.</p>
+                    </div>
+                    <div class="post-actions">
+                        <span class="post-action">👍 Like (5)</span>
+                        <span class="post-action">💬 Reply (2)</span>
+                        <span class="post-action">⭐ Helpful</span>
                     </div>
                 </div>
-
-                <!-- Instructors Tab -->
-                <div id="instructors" class="tab-content">
-                    <div style="padding: 1rem 0;">
-                        <h4 style="margin-bottom: 1.5rem;">👩‍🏫 Your Instructors</h4>
-                        <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem;">
-                            <div style="display: flex; gap: 1.5rem; align-items: start;">
-                                <div style="width: 60px; height: 60px; background: #667eea; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">S</div>
-                                <div>
-                                    <h5 style="margin-bottom: 0.3rem;">Sarah Chen</h5>
-                                    <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">Founder & Course Instructor</p>
-                                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">10+ years guiding non-technical founders through app development. Passionate about demystifying tech.</p>
-                                    <div style="font-size: 0.9rem; color: #667eea;">
-                                        📧 <a href="#" style="color: #667eea; text-decoration: none;">Email me</a><br>
-                                        📅 <a href="#" style="color: #667eea; text-decoration: none;">Office hours: Tues/Thurs 5-6pm PST</a><br>
-                                        💬 <a href="#" style="color: #667eea; text-decoration: none;">Q&A Tuesday 6-7pm PST (live)</a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="forum-post" style="margin-left: 40px; background: #f8f9ff;">
+                    <div class="post-author">
+                        <div class="author-avatar" style="width: 35px; height: 35px; font-size: 0.8em;">ME</div>
+                        <div class="author-info">
+                            <h4>You</h4>
+                            <p>1 hour ago</p>
                         </div>
-
-                        <h5 style="margin-bottom: 1rem;">Response Times</h5>
-                        <ul style="list-style: none;">
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">
-                                <strong>Forum posts:</strong> Within 24 hours
-                            </li>
-                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">
-                                <strong>Assignment feedback:</strong> Within 48 hours
-                            </li>
-                            <li style="padding: 0.5rem 0;">
-                                <strong>Email:</strong> Within 24 hours
-                            </li>
-                        </ul>
                     </div>
+                    <div class="post-content">
+                        <p>Great tips! I especially like the point about clear call to action. I often forget to tell the recipient what I want them to do next.</p>
+                    </div>
+                    <div class="post-actions">
+                        <span class="post-action">👍 Like</span>
+                        <span class="post-action">Edit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW POST -->
+            <div id="new-post" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Create New Discussion</h1>
+                </div>
+                <div class="card">
+                    <form style="display: grid; gap: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Topic Title</label>
+                            <input type="text" class="form-input" placeholder="What's your question or discussion topic?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-select">
+                                <option>General Discussion</option>
+                                <option>Module 2 Questions</option>
+                                <option>Study Tips</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Message</label>
+                            <textarea class="form-textarea" placeholder="Share your thoughts, questions, or insights..."></textarea>
+                        </div>
+                        <div style="display: flex; gap: 15px;">
+                            <button class="btn btn-primary" type="button">Post Discussion</button>
+                            <button class="btn btn-secondary" type="button" onclick="switchView(event, 'forum')">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- GRADES -->
+            <div id="grades" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Grades & Performance</h1>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Overall Course Grade</h3>
+                    <div style="text-align: center; padding: 30px 0;">
+                        <div style="font-size: 4em; font-weight: bold; color: #667eea; margin-bottom: 10px;">A-</div>
+                        <p style="color: #666; font-size: 1.1em;">4.5 / 5.0</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Assignment Grades</h3>
+                    <div class="grade-card">
+                        <div class="grade-info">
+                            <h4>Module 1 Assessment</h4>
+                            <p>Completed • Module 1</p>
+                        </div>
+                        <div class="grade-value">
+                            <div class="grade-number">92%</div>
+                            <div class="grade-label">A</div>
+                        </div>
+                    </div>
+                    <div class="grade-card">
+                        <div class="grade-info">
+                            <h4>Email Writing Task</h4>
+                            <p>Submitted • Pending Grading</p>
+                        </div>
+                        <div class="grade-value">
+                            <div class="grade-number">—</div>
+                            <div class="grade-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="grade-card">
+                        <div class="grade-info">
+                            <h4>Vocabulary Quiz</h4>
+                            <p>Completed • Module 2</p>
+                        </div>
+                        <div class="grade-value">
+                            <div class="grade-number">80%</div>
+                            <div class="grade-label">B</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OFFICE HOURS -->
+            <div id="office-hours" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Book Office Hours</h1>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Available Sessions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; text-align: center;">
+                            <p style="color: #667eea; font-weight: 600;">Monday 3:00 PM</p>
+                            <p style="color: #666; font-size: 0.9em; margin: 10px 0;">30 minutes with Instructor</p>
+                            <button class="btn btn-primary btn-small" style="width: 100%;">Book Now</button>
+                        </div>
+                        <div style="background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; text-align: center;">
+                            <p style="color: #667eea; font-weight: 600;">Wednesday 7:00 PM</p>
+                            <p style="color: #666; font-size: 0.9em; margin: 10px 0;">30 minutes with Instructor</p>
+                            <button class="btn btn-primary btn-small" style="width: 100%;">Book Now</button>
+                        </div>
+                        <div style="background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; text-align: center;">
+                            <p style="color: #667eea; font-weight: 600;">Friday 10:00 AM</p>
+                            <p style="color: #666; font-size: 0.9em; margin: 10px 0;">30 minutes with Instructor</p>
+                            <button class="btn btn-primary btn-small" style="width: 100%;">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Your Upcoming Sessions</h3>
+                    <p style="color: #666;">Wednesday, December 20 at 7:00 PM with Instructor</p>
+                    <p style="color: #999; font-size: 0.9em; margin-top: 10px;">Zoom link will be sent 30 minutes before the session</p>
+                </div>
+            </div>
+
+            <!-- CALENDAR -->
+            <div id="calendar" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Course Calendar</h1>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Important Dates</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea;">Dec 20 - Email Writing Task Due</p>
+                            <p style="color: #666; font-size: 0.9em;">Complete your 3 professional emails</p>
+                        </div>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea;">Dec 22 - Role-Play Practice Session</p>
+                            <p style="color: #666; font-size: 0.9em;">Optional synchronous session - Practice scenarios with peers</p>
+                        </div>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea;">Dec 27 - Module 2 Reflection Due</p>
+                            <p style="color: #666; font-size: 0.9em;">Reflect on your learning and progress in Module 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESOURCES -->
+            <div id="resources" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Learning Resources</h1>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📄 Email Templates</h4>
+                        <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Professional templates for business emails</p>
+                        <button class="btn btn-primary btn-small" style="width: 100%;">Download</button>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📚 Vocabulary List</h4>
+                        <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Master 500+ business English words</p>
+                        <button class="btn btn-primary btn-small" style="width: 100%;">Access</button>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📋 Assessment Rubric</h4>
+                        <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Understand grading criteria</p>
+                        <button class="btn btn-primary btn-small" style="width: 100%;">View</button>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📝 Transcripts</h4>
+                        <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Video transcripts for all lessons</p>
+                        <button class="btn btn-primary btn-small" style="width: 100%;">Download</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTIFICATIONS -->
+            <div id="notifications" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Notifications</h1>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-content">
+                        <h4>🎯 Assignment Feedback</h4>
+                        <p>Your Module 1 assessment has been graded (92%)</p>
+                    </div>
+                    <div class="notification-time">1 day ago</div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-content">
+                        <h4>💬 Forum Reply</h4>
+                        <p>Someone replied to your email writing tips discussion</p>
+                    </div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-content">
+                        <h4>📝 Assignment Reminder</h4>
+                        <p>Email Writing Task is due in 2 days</p>
+                    </div>
+                    <div class="notification-time">3 days ago</div>
+                </div>
+            </div>
+
+            <!-- PROFILE -->
+            <div id="profile" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">My Profile</h1>
+                </div>
+                <div class="card">
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: start; margin-bottom: 30px;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; display: flex; align-items: center; justify-content: center; font-size: 2em; font-weight: bold;">LN</div>
+                        <div>
+                            <h3 style="color: #333; margin-bottom: 5px;">Learner Name</h3>
+                            <p style="color: #666;">learner@email.com</p>
+                            <p style="color: #999; font-size: 0.9em; margin-top: 10px;">Joined: December 5, 2025</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-small">Edit Profile Picture</button>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Learning Statistics</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px 0;">
+                            <p style="font-size: 1.8em; font-weight: bold; color: #667eea;">7</p>
+                            <p style="color: #666; font-size: 0.9em;">Lessons Completed</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px 0;">
+                            <p style="font-size: 1.8em; font-weight: bold; color: #667eea;">12</p>
+                            <p style="color: #666; font-size: 0.9em;">Day Streak</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px 0;">
+                            <p style="font-size: 1.8em; font-weight: bold; color: #667eea;">4.5/5</p>
+                            <p style="color: #666; font-size: 0.9em;">Average Score</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS -->
+            <div id="settings" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Settings</h1>
+                </div>
+                <div class="settings-group">
+                    <h3>Email Notifications</h3>
+                    <div class="setting-item">
+                        <div>
+                            <p style="font-weight: 600; color: #333;">Assignment Reminders</p>
+                            <p style="color: #999; font-size: 0.9em;">Get notified before assignments are due</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <p style="font-weight: 600; color: #333;">Forum Notifications</p>
+                            <p style="color: #999; font-size: 0.9em;">Get notified when someone replies to your posts</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <p style="font-weight: 600; color: #333;">Grade Notifications</p>
+                            <p style="color: #999; font-size: 0.9em;">Get notified when assignments are graded</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Privacy</h3>
+                    <div class="setting-item">
+                        <div>
+                            <p style="font-weight: 600; color: #333;">Make Profile Public</p>
+                            <p style="color: #999; font-size: 0.9em;">Allow other learners to view your profile</p>
+                        </div>
+                        <div class="toggle-switch" onclick="this.classList.toggle('active')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Account</h3>
+                    <button class="btn btn-secondary btn-small">Change Password</button>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-secondary btn-small" style="background: #ff6b6b; color: white; border-color: #ff6b6b;">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HELP -->
+            <div id="help" class="view">
+                <div class="page-header">
+                    <h1 class="page-title">Help Center</h1>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">Frequently Asked Questions</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea; cursor: pointer;">How do I submit an assignment?</p>
+                            <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Go to Assignments, find the assignment, and click Submit. You can upload files or paste text.</p>
+                        </div>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea; cursor: pointer;">How long do I have to complete the course?</p>
+                            <p style="color: #666; font-size: 0.9em; margin-top: 8px;">The course runs for 10 weeks, but you can pace yourself. All content is available from day one.</p>
+                        </div>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <p style="font-weight: 600; color: #667eea; cursor: pointer;">How is the course graded?</p>
+                            <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Speaking: 40%, Quizzes: 20%, Scenarios: 25%, Capstone: 10%, Participation: 5%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Contact Support</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Can't find the answer? Contact us:</p>
+                    <p style="color: #667eea; font-weight: 600;">📧 support@englishlearninghub.com</p>
+                    <p style="color: #667eea; font-weight: 600;">🎓 Book Office Hours (Response within 24 hours)</p>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        function switchTab(event, tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            // Show selected content
-            document.getElementById(tabName).classList.add('active');
-
-            // Mark tab as active
-            event.target.classList.add('active');
+        function switchView(event, viewName) {
+            if (event) event.preventDefault();
+            
+            const views = document.querySelectorAll('.view');
+            views.forEach(view => view.classList.remove('active'));
+            
+            const selectedView = document.getElementById(viewName);
+            if (selectedView) {
+                selectedView.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
